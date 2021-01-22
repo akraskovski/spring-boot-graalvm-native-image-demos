@@ -1,13 +1,13 @@
-package com.github.akraskovski.app;
+package com.github.akraskovski;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootGraalvmNativeImageApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootGraalvmNativeImageApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

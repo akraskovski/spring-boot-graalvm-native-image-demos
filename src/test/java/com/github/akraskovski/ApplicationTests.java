@@ -1,10 +1,10 @@
-package com.github.akraskovski.app;
+package com.github.akraskovski;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootGraalvmNativeImageApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() {
