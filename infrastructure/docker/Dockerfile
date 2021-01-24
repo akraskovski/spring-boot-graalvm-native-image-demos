@@ -1,9 +1,7 @@
-FROM alpine:3.13.0
+FROM oraclelinux:8-slim
 
-RUN apk --no-cache add curl
-
-ADD ../../target/app /opt/app
+ADD ./target/app /home/bin/app
 
 EXPOSE 8080
 
-ENTRYPOINT /opt/app
+CMD ["sh", "-c", "/home/bin/app"]
