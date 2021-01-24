@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+
+  redis:
+    container_name: spring-boot-graalvm-native-image-redis
+    image: bitnami/redis:6.0.5
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - 6379:6379
+    networks:
+      - spring-boot-graalvm-native-image
+
+  rabbitmq:
+    container_name: spring-boot-graalvm-native-image-rabbitmq
+    image: rabbitmq:3.8.3-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - spring-boot-graalvm-native-image_rabbitmq_data_container:/etc/rabbitmq/
+      - spring-boot-graalvm-native-image_rabbitmq_data_container:/var/lib/rabbitmq/
+      - spring-boot-graalvm-native-image_rabbitmq_data_container:/var/log/rabbitmq/
+    networks:
+      - spring-boot-graalvm-native-image
+
+  postgres:
+    container_name: spring-boot-graalvm-native-image-postgres
+    image: postgres:10.5
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: spring-boot-graalvm-native-image
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - spring-boot-graalvm-native-image_postgres_data_container:/var/lib/postgresql/data
+    networks:
+      - spring-boot-graalvm-native-image
+
+  app:
+    container_name: spring-boot-graalvm-native-image-app
+    build: Dockerfile
+    depends_on: [ redis,postgres,rabbitmq ]
+    ports: [ 8080:8080 ]
+    env_file: .env.docker
+    networks:
+      spring-boot-graalvm-native-image
+
+volumes:
+  spring-boot-graalvm-native-image_postgres_data_container:
+  spring-boot-graalvm-native-image_rabbitmq_data_container:
+
+networks:
+  spring-boot-graalvm-native-image:
+    name: spring-boot-graalvm-native-image
