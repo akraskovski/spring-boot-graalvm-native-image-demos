@@ -1,5 +1,7 @@
-package com.github.akraskovski.jpa.sources;
+package com.github.akraskovski.jpa;
 
+import com.github.akraskovski.jpa.sources.Foo;
+import com.github.akraskovski.jpa.sources.FooRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

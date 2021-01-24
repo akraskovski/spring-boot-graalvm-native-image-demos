@@ -49,7 +49,7 @@ services:
     ports: [ 8080:8080 ]
     env_file: .env.docker
     networks:
-      spring-boot-graalvm-native-image
+      - spring-boot-graalvm-native-image
 
 volumes:
   spring-boot-graalvm-native-image_postgres_data_container:
