@@ -1,9 +1,9 @@
 package com.github.akraskovski.redis;
 
-import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,17 +11,17 @@ public class RedisExampleRunner implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RedisExampleRunner.class);
 
-    private final RedissonClient redissonClient;
+    private final StringRedisTemplate redisTemplate;
 
-    public RedisExampleRunner(RedissonClient redissonClient) {
-        this.redissonClient = redissonClient;
+    public RedisExampleRunner(StringRedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        var map = redissonClient.getMap("test.map.cache");
-        map.put("test.key", "test.value");
+    public void run(String... args) {
+        var ops = redisTemplate.opsForHash();
+        ops.put("test.redis.map.cache", "test.key", "test.value");
         log.info("Put [test.key]='test.value'");
-        log.info("Removed by key [test.key]='{}'", map.remove("test.key"));
+        log.info("Removed by key [test.key]='{}'", ops.delete("test.redis.map.cache", "test.key"));
     }
 }

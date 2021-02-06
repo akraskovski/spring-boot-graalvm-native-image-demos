@@ -1,4 +1,4 @@
-name: Run tests
+name: Test and Build Native Image
 
 on:
   pull_request:
